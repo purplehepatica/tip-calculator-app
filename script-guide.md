@@ -14,3 +14,9 @@
     - Do "Bill" dodaj policzoną wartośc napiwka i podziel przez nią liczbę osób (Total / person),
 
   - Wyzeruj całość z pomocą przycisku "Reset".
+
+---
+
+- Dodać działanie inputu "Custom",
+- Uruchomić odświeżanie wpisanej kwoty, co X okres czasu?
+- 

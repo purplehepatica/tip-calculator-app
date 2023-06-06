@@ -6,7 +6,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
+  <script defer src="script.js"></script>
   <title>Frontend Mentor | Tip calculator app</title>
 
 </head>
@@ -16,24 +16,24 @@
 
       <div class="bill-part">
         <p>Bill</p>
-        <input type="text" />
+        <input class="bill-input" type="text" />
       </div>
 
       <div class="select-tip-part">
         <p>Select Tip %</p>
         <div class="tip-percentage">
-          <button>5%</button>
-          <button>10%</button>
-          <button>15%</button>
-          <button>25%</button>
-          <button>50%</button>
+          <button class="five">5%</button>
+          <button class="ten">10%</button>
+          <button class="fifteen">15%</button>
+          <button class="twentyfive">25%</button>
+          <button class="fifty">50%</button>
           <p>Custom</p>
         </div>
       </div>
 
       <div class="number-of-people-part">
         <p>Number of People</p>
-        <input type="text" />
+        <input class="number-of-people-input" type="text" />
       </div>
 
     </div>
