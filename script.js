@@ -21,13 +21,15 @@ const numberOfPeople = () => {
 
 
 
-
+let selectedTipValue = 0;
 
 const tipPercentages = document.querySelector(".tip-percentage").querySelectorAll(".percent");
 
 
 
 document.querySelector(".five").addEventListener("click", function() {
+
+  selectedTipValue = 5;
 
   const allPercentItems = document.querySelectorAll(".percent");
   for (let thisPercent of allPercentItems) {
@@ -37,9 +39,13 @@ document.querySelector(".five").addEventListener("click", function() {
 
   tipAmount(5);
   totalAmount(5);
+
+  return selectedTipValue;
 })
 
 document.querySelector(".ten").addEventListener("click", function() {
+
+  selectedTipValue = 10;
 
   const allPercentItems = document.querySelectorAll(".percent");
   for (let thisPercent of allPercentItems) {
@@ -50,9 +56,13 @@ document.querySelector(".ten").addEventListener("click", function() {
 
   tipAmount(10);
   totalAmount(10);
+
+  return selectedTipValue;
 })
 
 document.querySelector(".fifteen").addEventListener("click", function() {
+
+  selectedTipValue = 15;
 
     const allPercentItems = document.querySelectorAll(".percent");
     for (let thisPercent of allPercentItems) {
@@ -63,9 +73,13 @@ document.querySelector(".fifteen").addEventListener("click", function() {
 
   tipAmount(15);
   totalAmount(15);
+
+  return selectedTipValue;
 })
 
 document.querySelector(".twentyfive").addEventListener("click", function() {
+
+  selectedTipValue = 25;
 
   const allPercentItems = document.querySelectorAll(".percent");
   for (let thisPercent of allPercentItems) {
@@ -76,9 +90,13 @@ document.querySelector(".twentyfive").addEventListener("click", function() {
 
   tipAmount(25);
   totalAmount(25);
+
+  return selectedTipValue;
 })
 
 document.querySelector(".fifty").addEventListener("click", function() {
+
+  selectedTipValue = 50;
 
   const allPercentItems = document.querySelectorAll(".percent");
   for (let thisPercent of allPercentItems) {
@@ -89,9 +107,13 @@ document.querySelector(".fifty").addEventListener("click", function() {
 
   tipAmount(50);
   totalAmount(50);
+
+  return selectedTipValue;
 })
 
 document.querySelector(".custom").addEventListener("click", function() {
+
+  selectedTipValue = document.querySelector(".custom").value;
 
   const allPercentItems = document.querySelectorAll(".percent");
   for (let thisPercent of allPercentItems) {
@@ -103,6 +125,8 @@ document.querySelector(".custom").addEventListener("click", function() {
   const customTipValue = document.querySelector(".custom").value;
   tipAmount(customTipValue);
   totalAmount(customTipValue);
+
+  return selectedTipValue;
 })
 
 
@@ -123,13 +147,13 @@ function tipAmount(tipValue) {
   };
 
   if (tipValue === null || tipValue < 0) {
-    document.querySelector(".total").innerText = "$0.00";
+    document.querySelector(".tip-amount").innerText = "$0.00";
     return "$0.00"
   };
 
   const tipAmountPerPerson = billInput() * (tipValue / 100) / numberOfPeople();
-  document.querySelector(".tip-amount").innerText = `$${tipAmountPerPerson}`;
-  return `$${tipAmountPerPerson}`
+  document.querySelector(".tip-amount").innerText = `$${tipAmountPerPerson.toFixed(2)}`;
+  return `$${tipAmountPerPerson.toFixed(2)}`
 }
 
 
@@ -153,6 +177,29 @@ function totalAmount(tipValue) {
 
   const totalAmountPerPerson = (billInput() + (billInput() * (tipValue / 100))) / numberOfPeople();
 
-  document.querySelector(".total").innerText = `$${totalAmountPerPerson}`;
-  return `$${totalAmountPerPerson}`
+  document.querySelector(".total").innerText = `$${totalAmountPerPerson.toFixed(2)}`;
+  return `$${totalAmountPerPerson.toFixed(2)}`
 }
+
+
+document.querySelector(".reset").addEventListener("click", reset);
+
+function reset() {
+  const inputs = document.querySelectorAll("input");
+
+  for (let input of inputs) {
+    input.value = "";
+    document.querySelector(".tip-amount").innerText = "$0.00";
+    document.querySelector(".total").innerText = "$0.00";
+
+    const allPercentItems = document.querySelectorAll(".percent");
+    for (let thisPercent of allPercentItems) {
+      thisPercent.classList.remove("active");
+    }
+  }
+}
+
+setInterval(function() {
+  tipAmount(selectedTipValue)
+  totalAmount(selectedTipValue)
+}, 100)
