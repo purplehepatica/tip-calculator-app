@@ -46,6 +46,7 @@ body {
   border: none;
   border-radius: 7px;
   margin: 5px;
+  font-size: 24px;
 }
 
 .tip-percentage input {
@@ -63,6 +64,7 @@ body {
 }
 
 .custom {
+  font-size: 24px;
 }
 
 .bill-input, .number-of-people-input {
@@ -80,6 +82,7 @@ body {
   background-color: hsl(183, 100%, 15%);
   color: white;
   width: 50%;
+  border-radius: 15px;
 }
 
 .tip-amount-part {
