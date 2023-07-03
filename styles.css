@@ -73,7 +73,7 @@ body {
   border: none;
   height: 35px;
   text-align: right;
-  color: hsl(184, 14%, 56%);
+  color: hsl(183, 100%, 15%);
   padding: 0 10px;
   font-size: 24px;
 }
@@ -108,11 +108,32 @@ p span {
 }
 
 .reset {
-  background-color: #167366;
+  background-color: #0d686d;
   border: none;
   display: block;
   margin: 0 auto;
   width: 80%;
   height: 35px;
   margin-top: 35px;
+}
+
+input:hover {
+  border: 1px solid hsl(172, 67%, 45%);
+}
+
+.percent-button:hover, .reset:hover {
+  background-color: #9fe8fd;
+}
+
+.invalid-input-value {
+  border: 1px solid orange;
+}
+
+.bill-part-texts, .select-tip-part-texts, .number-of-people-part-texts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.validation {
+  color: orange;
 }

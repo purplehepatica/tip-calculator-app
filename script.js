@@ -1,89 +1,174 @@
-let billValue = null;
+/** Those values could be added to object **/
+const billInput = document.querySelector(".bill-input");
+const numberOfPeopleInput = document.querySelector(".number-of-people-input");
+const allPercentClassElements = document.querySelectorAll(".percent");
 
-document.querySelector(".bill-input").addEventListener("input", function() {
+const totalAmountSection = document.querySelector(".total");
+const tipAmountSection = document.querySelector(".tip-amount");
 
-  if (isNaN(document.querySelector(".bill-input").value) === true || Number(document.querySelector(".bill-input").value) < 0) {
-    document.querySelector(".bill-input").style.backgroundColor = "red";s
-    billValue = null;
-  }
+let billInputValue = null;
 
-  billValue = Number(document.querySelector(".bill-input").value);
+let currentChoosenPercentElement = null;
 
-  updateFinalPrices()
-})
+let tipPercentInputValue = null;
+let numberOfPeopleInputValue = null;
 
 
 
-let tipPercentValue = null;
-const allPercentItems = document.querySelectorAll(".percent");
+function addBillPartListener() {
 
-allPercentItems.forEach((item, index) => {
+  billInput.addEventListener("input", function() {
 
-  if (item.classList.contains("custom")) {
-    item.addEventListener("input", function() {
-      tipPercentValue = Number(document.querySelector(".custom").value);
+    billInputValue = Number(this.value);
+    validateInputs(billInput, billInputValue);
+  });
+}
 
-      for (let thisPercent of allPercentItems) {
+
+
+function addPercentsSectionListeners() {
+
+  allPercentClassElements.forEach((item) => {
+
+    let typeOfEventListener = null;
+
+    if (item.classList.contains("custom")) {
+      typeOfEventListener = "input";
+    } else {
+      typeOfEventListener = "click";
+    }
+
+    item.addEventListener(typeOfEventListener, function() {
+
+      currentChoosenPercentElement = item;
+
+      if (typeOfEventListener === "input") {
+        tipPercentInputValue = Number(item.value);
+      } else {
+        tipPercentInputValue = item.getAttribute("data-tip-percent");
+      }
+
+      for (let thisPercent of allPercentClassElements) {
         thisPercent.classList.remove("active");
       }
 
       item.classList.add("active");
 
-      tipAmount()
+      validateInputs(currentChoosenPercentElement, tipPercentInputValue);
     })
-  } else if (item.classList.contains("percent-button")) {
-    item.addEventListener("click", function() {
-      tipPercentValue = item.getAttribute("data-tip-percent");
 
-      for (let thisPercent of allPercentItems) {
-        thisPercent.classList.remove("active");
-      }
-
-      item.classList.add("active");
-
-      updateFinalPrices()
-    })
-  }
-
-
-
-})
-
-
-
-let numberOfPeople = null;
-
-document.querySelector(".number-of-people-input").addEventListener("input", function() {
-  numberOfPeople = Number(document.querySelector(".number-of-people-input").value);
-
-  updateFinalPrices()
-})
-
-
-
-function tipAmount() {
-
-  if (billValue !== null && tipPercentValue !== null && numberOfPeople !== null ) {
-    const tipAmountPerPerson = billValue * (tipPercentValue / 100) / numberOfPeople;
-    document.querySelector(".tip-amount").innerText = `$${tipAmountPerPerson.toFixed(2)}`;
-    return `$${tipAmountPerPerson.toFixed(2)}`
-  }
-
+  })
 }
 
 
 
-function totalAmount() {
+function addNumberOfPeoplePartListener() {
 
-  if (billValue !== null && tipPercentValue !== null && numberOfPeople !== null ) {
-    const totalAmountPerPerson = (billValue + (billValue * (tipPercentValue / 100) / numberOfPeople));
+  numberOfPeopleInput.addEventListener("input", function() {
 
-    document.querySelector(".total").innerText = `$${totalAmountPerPerson.toFixed(2)}`;
-    return `$${totalAmountPerPerson.toFixed(2)}`
+    numberOfPeopleInputValue = Number(this.value);
+    validateInputs(numberOfPeopleInput, numberOfPeopleInputValue);
+  })
+}
+
+
+
+function addEventListeners() {
+
+  addBillPartListener();
+  addPercentsSectionListeners();
+  addNumberOfPeoplePartListener();
+
+}
+
+addEventListeners();
+
+
+
+/** TO CLEANUP start **/
+
+function validateInputs(input, inputValue) {
+
+  let textsPartClassParent = input.parentElement.parentElement.classList;
+  let textsPartValidationElement = document.querySelector(`.${textsPartClassParent[0]} .validation`);
+
+  if (isNaN(inputValue) === true || Number(inputValue) <= 0) {
+
+    input.classList.add("invalid-input-value");
+
+    if (inputValue === 0) {
+      textsPartValidationElement.innerText = "Can't be zero";
+    } else {
+      textsPartValidationElement.innerText = "Must be a number";
+    }
+
+  }
+  else {
+
+    input.classList.remove("invalid-input-value");
+
+    textsPartValidationElement.innerText = "";
+  }
+
+  validateEndValues();
+}
+
+/** TO CLEANUP end **/
+
+
+
+function validateEndValues() {
+
+/** TO DO BETTER start **/
+
+  const valueValidation = {
+    billInput: (isNaN(billInputValue) === true || Number(billInputValue) <= 0),
+    tipPercentInput: (isNaN(tipPercentInputValue) === true || Number(tipPercentInputValue) <= 0),
+    numberOfPeopleInput: (isNaN(numberOfPeopleInputValue) === true || Number(numberOfPeopleInputValue) <= 0)
+  }
+
+/** TO DO BETTER end **/
+
+  if (valueValidation["billInput"] || valueValidation["tipPercentInput"] || valueValidation["numberOfPeopleInput"]) {
+    updateFinalPrices(0);
+  } else {
+    updateFinalPrices(1)
   }
 }
 
-function updateFinalPrices() {
-  tipAmount();
-  totalAmount();
+
+
+function updateFinalPrices(zero) {
+
+  setTipAmountPerPerson(zero);
+  setTotalAmountPerPerson(zero);
+}
+
+
+
+function setTipAmountPerPerson(zero) {
+
+  if (zero === 0) {
+    tipAmountSection.innerText = "$0.00";
+    return;
+  }
+
+  const tipAmountPerPerson = billInputValue * (tipPercentInputValue / 100) / numberOfPeopleInputValue;
+
+  tipAmountSection.innerText = `$${tipAmountPerPerson.toFixed(2)}`;
+}
+
+
+
+function setTotalAmountPerPerson(zero) {
+
+  if (zero === 0) {
+    totalAmountSection.innerText = "$0.00";
+    return;
+  }
+
+  const fullTotalAmount = (billInputValue + (billInputValue * (tipPercentInputValue / 100)));
+  const totalAmountPerPerson = fullTotalAmount / numberOfPeopleInputValue;
+
+  totalAmountSection.innerText = `$${totalAmountPerPerson.toFixed(2)}`;
 }
