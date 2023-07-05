@@ -1,6 +1,7 @@
 /** Those values could be added to object **/
 const billInput = document.querySelector(".bill-input");
 const numberOfPeopleInput = document.querySelector(".number-of-people-input");
+const resetButton = document.querySelector(".reset");
 
 const allPercentClassElements = document.querySelectorAll(".percent");
 const inputElements = document.querySelectorAll("input");
@@ -183,8 +184,6 @@ function setTotalAmountPerPerson(zero) {
 
 /** TO CLEANUP start **/
 
-const resetButton = document.querySelector(".reset");
-
 function resetButtonActiveClass() {
 
   if (inputElements[0].value !== "" || inputElements[1].value !== "" || inputElements[2].value !== "")  {
@@ -192,6 +191,15 @@ function resetButtonActiveClass() {
   } else {
     resetButton.classList.remove("active");
   }
+
+  for (let percentClassElement of allPercentClassElements) {
+
+    if (percentClassElement.classList.contains("active")) {
+      resetButton.classList.add("active");
+      return;
+    }
+  }
+
 }
 
 resetButton.addEventListener("click", function reset() {

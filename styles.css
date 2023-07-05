@@ -76,6 +76,10 @@ body {
   color: black!important;
 }
 
+.reset-part > .active:hover {
+  background-color: #9FE8DF;
+}
+
 .custom {
   font-size: 24px;
 }
@@ -94,7 +98,6 @@ body {
   border: none;
   height: 48px;
   text-align: right;
-  color: #F3F9FA;
   padding: 0 10px;
   font-size: 24px;
 }
@@ -180,6 +183,7 @@ input:hover {
 
 input:focus {
   border: none!important;
+  color: color: #00474B;
 }
 
 .percent-button:hover, .reset:hover {
@@ -207,6 +211,10 @@ input:focus {
 
 .validation {
   color: #E17052;
+}
+
+button {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1024px) {
