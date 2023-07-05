@@ -1,7 +1,9 @@
 /** Those values could be added to object **/
 const billInput = document.querySelector(".bill-input");
 const numberOfPeopleInput = document.querySelector(".number-of-people-input");
+
 const allPercentClassElements = document.querySelectorAll(".percent");
+const inputElements = document.querySelectorAll("input");
 
 const totalAmountSection = document.querySelector(".total");
 const tipAmountSection = document.querySelector(".tip-amount");
@@ -89,10 +91,14 @@ addEventListeners();
 
 function validateInputs(input, inputValue) {
 
+  resetButtonActiveClass();
+
   let textsPartClassParent = input.parentElement.parentElement.classList;
   let textsPartValidationElement = document.querySelector(`.${textsPartClassParent[0]} .validation`);
 
   if (isNaN(inputValue) === true || Number(inputValue) <= 0) {
+
+    input.classList.remove("active");
 
     input.classList.add("invalid-input-value");
 
@@ -172,3 +178,39 @@ function setTotalAmountPerPerson(zero) {
 
   totalAmountSection.innerText = `$${totalAmountPerPerson.toFixed(2)}`;
 }
+
+
+
+/** TO CLEANUP start **/
+
+const resetButton = document.querySelector(".reset");
+
+function resetButtonActiveClass() {
+
+  if (inputElements[0].value !== "" || inputElements[1].value !== "" || inputElements[2].value !== "")  {
+    resetButton.classList.add("active");
+  } else {
+    resetButton.classList.remove("active");
+  }
+}
+
+resetButton.addEventListener("click", function reset() {
+
+  for (let input of inputElements) {
+    input.value = "";
+    input.classList.remove("invalid-input-value");
+
+    tipAmountSection.innerText = "$0.00";
+    totalAmountSection.innerText = "$0.00";
+
+    for (let thisPercent of allPercentClassElements) {
+      thisPercent.classList.remove("active");
+    }
+
+    for (let thisPercent of document.querySelectorAll(".validation")) {
+      thisPercent.innerText = "";
+    }
+  }
+});
+
+/** TO CLEANUP end **/

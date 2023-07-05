@@ -10,23 +10,31 @@
 
 body {
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   background-color: hsl(185, 41%, 84%);
-  padding-top: 100px;
 }
 
 .card {
-  width: 700px;
+  max-width: 920px;
+  min-height: 481px;
   display: flex;
+  justify-content: space-between;
   background-color: white;
-  margin: 0 auto;
-  padding: 25px;
+  margin: 32px auto;
+  padding: 32px;
   border-radius: 25px;
-  gap: 10px;
+  gap: clamp(1px, 48px, 48px);
+}
+
+.splitter {
+  color: #3D6666;
+  text-transform: uppercase;
+  letter-spacing: 15px;
+  margin: 85px auto;
 }
 
 .left-section {
-  width: 50%;
+  max-width: 50%;
   color: hsl(184, 14%, 56%);
 }
 
@@ -38,15 +46,20 @@ body {
   grid-auto-flow: row;
   gap: 5px;
   text-align: center;
+  font-weight: 700;
 }
 
 .tip-percentage button {
   background-color: hsl(183, 100%, 15%);
   color: white;
   border: none;
-  border-radius: 7px;
+  border-radius: 5px;
   margin: 5px;
   font-size: 24px;
+}
+
+.tip-percentage button:hover {
+  color: #00474B;
 }
 
 .tip-percentage input {
@@ -54,7 +67,7 @@ body {
   color: hsl(183, 100%, 15%);
   text-align: center;
   border: none;
-  border-radius: 7px;
+  border-radius: 5px;
   margin: 5px;
 }
 
@@ -73,34 +86,48 @@ body {
   border: none;
   height: 35px;
   text-align: right;
-  color: hsl(183, 100%, 15%);
+  color: hsl(184%, 19%, 68%);
   padding: 0 10px;
   font-size: 24px;
 }
 
+.bill-part-texts, .select-tip-part-texts, .number-of-people-part-texts {
+  color: #5E7A7D;
+}
+
+
 .right-section {
   background-color: hsl(183, 100%, 15%);
   color: white;
-  width: 50%;
   border-radius: 15px;
+  max-width: 50%;
 }
 
-.tip-amount-part {
+.tip-amount-part, .total-part {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: clamp(15px, 40px, 40px);
 }
 
 .tip-amount, .total {
   color: hsl(172, 67%, 45%);
-  font-size: 32px;
+  font-size: 48px;
+  margin: 0;
 }
 
 p span {
   display: block;
+  font-size: 13px;
+  color: #7F9D9F;
 }
-.total-part {
-  display: flex;
-  justify-content: space-around;
+
+h1 {
+  text-align: center;
+}
+
+h1 span {
+  display: block;
 }
 
 .reset-part {
@@ -108,25 +135,35 @@ p span {
 }
 
 .reset {
-  background-color: #0d686d;
+  background-color: #0D686D;
+  color: #00474B;
   border: none;
   display: block;
   margin: 0 auto;
   width: 80%;
   height: 35px;
   margin-top: 35px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: Space Mono;
 }
 
 input:hover {
-  border: 1px solid hsl(172, 67%, 45%);
+  border: 2px solid hsl(172, 67%, 45%);
+}
+
+input:focus {
+  border: none!important;
 }
 
 .percent-button:hover, .reset:hover {
-  background-color: #9fe8fd;
+  background-color: #9FE8DF;
 }
 
 .invalid-input-value {
-  border: 1px solid orange;
+  border: 2px solid #E17052!important;
 }
 
 .bill-part-texts, .select-tip-part-texts, .number-of-people-part-texts {
@@ -134,6 +171,51 @@ input:hover {
   justify-content: space-between;
 }
 
+.bill-part-input-section, .number-of-people-input-section {
+  display: flex;
+}
+
+.bill-part-input-section img, .number-of-people-input-section img {
+  position: absolute;
+  align-self: center;
+  padding-left: 10px;
+}
+
 .validation {
-  color: orange;
+  color: #E17052;
+}
+
+@media only screen and (max-width: 1024px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .left-section, .right-section {
+    max-width: 100%;
+  }
+
+  .tip-percentage {
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(3, 50%);
+  }
+
+  .percent {
+    height: 48px;
+  }
+
+  .right-section {
+    padding: 32px;
+  }
+
+  .tip-amount-part, .total-part {
+    margin: 0;
+  }
+
+  .reset {
+    height: 48px;
+  }
+
+  .tip-amount, .total {
+    font-size: 32px;
+  }
 }
