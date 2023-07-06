@@ -14,6 +14,8 @@ Spoko! :-)
 
 3. Przegląd kodu CSS i jego oczyszczenie.
 
+4. Poprawić kod pod kątem addEventListener(e) => e.target.
+
 ---
 
 ## Podsumowanie
