@@ -16,7 +16,7 @@ Spoko! :-)
 
 4. Poprawić kod pod kątem addEventListener(e) => e.target.
 
-Ciekawe!: const [bill, tip, people] = document.querySelectorAll("input");
+!Ciekawe: const [bill, tip, people] = document.querySelectorAll("input");
 
 ---
 
